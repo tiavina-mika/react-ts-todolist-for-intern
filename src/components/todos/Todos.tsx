@@ -35,10 +35,7 @@ const useStyles = createUseStyles((theme: any) => ({
   },
 }))
 
-// type Props = { items: Todo[]; handleItems: (values: Todo[]) => void };
-// const Todos = ({ items, handleItems }: Props) => {
-type Props = { handleItems: (values: Todo[]) => void };
-const Todos = ({ handleItems }: Props) => {
+const Todos = () => {
   const { todos: items } = useTodoState();
   const classes = useStyles();
   const theme = useTheme();

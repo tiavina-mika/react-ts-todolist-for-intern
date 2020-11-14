@@ -15,27 +15,16 @@ const useStyles = createUseStyles((theme: any) => ({
   container: {},
 }))
 
-export interface Todo {
-  text: string;
-  checked: boolean;
-}
+
 const App = () => {
   const classes = useStyles();
-  const [items, setItems] = useState<Todo[]>([]);
-
-  const handleSubmit = (value: Todo): void => {
-    setItems([...items, value]);
-  };
-
-  const handleItems = (items: Todo[]): void => setItems([...items]);
 
   return (
     <TodoProvider>
       <div className={classes.root}>
         <div className={classes.container}>
-          <Form handleSubmit={handleSubmit} />
-          <Todos handleItems={handleItems} />
-          {/* <Todos items={items} handleItems={handleItems} /> */}
+          <Form />
+          <Todos />
         </div>
       </div>
     </TodoProvider>

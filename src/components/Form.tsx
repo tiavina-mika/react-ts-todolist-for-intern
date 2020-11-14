@@ -36,8 +36,7 @@ const useStyles = createUseStyles((theme: any) => ({
   },
 }))
 
-type Props = { handleSubmit: (value: Todo) => void };
-const Form = ({ handleSubmit }: Props) => {
+const Form = () => {
   const classes = useStyles();
   const [text, setText] = useState<string>('');
   const dispatch = useTodoDispatch();
