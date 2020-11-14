@@ -41,20 +41,8 @@ const Todos = () => {
   const theme = useTheme();
   const dispatch = useTodoDispatch();
   
-  const handleDelete = (todo: Todo): void => {
-    dispatch(removeTodo(todo));
-  }
-
-  const handleCheck = (todo: Todo): void => {
-    // const newItems: Todo[] = [...items];
-    // newItems.map((item: Todo, i: number): void | boolean => {
-    //   if (i !== index) return false;
-    //   item.checked = !item.checked;
-    //   return false;
-    // })
-    // handleItems([...newItems]);
-    dispatch(checkTodo(todo))
-  }
+  const handleDelete = (todo: Todo): void => dispatch(removeTodo(todo));
+  const handleCheck = (todo: Todo): void => dispatch(checkTodo(todo));
 
   return (
     <div className={classes.items}>
