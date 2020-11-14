@@ -3,9 +3,7 @@ import { createUseStyles, useTheme } from "react-jss";
 import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
 import IconButton from './IconButton';
-import { useTodoDispatch } from "../../store/context/TodoContext";
-import { checkTodo, removeTodo, selectTodo } from "../../store/actions/TodoActions";
-import { Todo as TodoI } from "../../store/reducers/TodoReducer";
+import Text from '../shared/Text';
 
 const useStyles = createUseStyles((theme: any) => ({
   items: {
@@ -22,11 +20,6 @@ const useStyles = createUseStyles((theme: any) => ({
     '&:hover': {
       cursor: 'pointer',
     }
-  },
-  text: {
-    fontFamily: 'Roboto, sans-serif',
-    textTransform: 'capitalize',
-    letterSpacing: 0.5,
   },
   actions: {
     composes: 'flexRow center',
@@ -48,11 +41,7 @@ const Column = ({ onSelect, onCheck, onDelete, content, checked }: Props) => {
       <div className={classes.item}>
         <div>
           <input type="checkbox" className={classes.checkbox} onChange={onSelect} />
-          {content && (
-            <span className={classes.text}>
-              {content}
-            </span>
-          )}
+          {content && <Text text={content} />}
         </div>
         {/* ----------------- Button Actions ----------------------------- */}
         <div className={classes.actions}>

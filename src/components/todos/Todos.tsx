@@ -6,6 +6,7 @@ import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
 import { checkTodo, removeTodo, removeTodos, selectTodo } from "../../store/actions/TodoActions";
 import { Todo as TodoI } from "../../store/reducers/TodoReducer";
 import Column from "./Column";
+import Text from "../shared/Text";
 
 const useStyles = createUseStyles((theme: any) => ({
   items: {
@@ -24,7 +25,7 @@ const Todos = () => {
   if (items.length === 0) {
     return (
       <div className={classes.items}>
-        <span className={classes.text}>No Todo Yet </span>
+        <Text text="No Todo Yet" /> 
       </div>
     )
   }
