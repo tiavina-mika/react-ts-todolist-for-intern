@@ -18,11 +18,22 @@ export const initialState: TodoState = {
 };
 
 export const todoReducer = (state: TodoState, action: TodoAction) => {
+  const { payload }: Pick<TodoAction, 'payload'> = action;
   switch (action.type) {
     case TodoActionTypes.ADD_TODO:
-      return [...state.todos, action.payload];
+      return {
+        ...state, 
+        todos: [...state.todos, {...payload}]
+      };
     case TodoActionTypes.REMOVE_TODO:
-      return state.todos.filter((todo: Todo) => todo.id !== action.payload.id)
+      return state.todos.filter((todo: Todo): boolean => todo.id !== payload?.id);
+    case TodoActionTypes.CHECK_TODO:
+        const todo: Todo | undefined = state.todos.find((todo: Todo): boolean => todo.id === payload?.id);
+        const newTodos: Todo[] = state.todos.filter((todoState: Todo): boolean => todoState !== todo);
+        return {
+          ...state, 
+          todos: [...newTodos, {...todo, checked: !todo?.checked}]
+        };
     default:
       return state;
   }

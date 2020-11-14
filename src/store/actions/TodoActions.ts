@@ -1,9 +1,10 @@
-import { Todo } from '../reducers/Todo'
+import { Todo } from '../reducers/TodoReducer'
 
 // Type of Actions allowed
 export enum TodoActionTypes {
   ADD_TODO = "ADD_TODO",
-  REMOVE_TODO = "REMOVE_TODO"
+  REMOVE_TODO = "REMOVE_TODO",
+  CHECK_TODO = "CHECK_TODO",
 }
 
 export interface TodoAction {
@@ -26,3 +27,12 @@ export const removeTodo = (todo: Todo) => {
     payload: todo
   };
 };
+
+// Action Generator for Check
+export const checkTodo = (todo: Todo) => {
+  return {
+    type: TodoActionTypes.CHECK_TODO,
+    payload: todo
+  };
+};
+

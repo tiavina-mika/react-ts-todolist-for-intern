@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createUseStyles } from "react-jss";
+import { addTodo } from "../store/actions/TodoActions";
+import { useTodoDispatch, useTodoState } from "../store/context/TodoContext";
 
 import { Todo } from './App';
 
@@ -38,13 +40,25 @@ type Props = { handleSubmit: (value: Todo) => void };
 const Form = ({ handleSubmit }: Props) => {
   const classes = useStyles();
   const [text, setText] = useState<string>('');
+  const dispatch = useTodoDispatch();
+  const { todos } = useTodoState();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setText(e.target.value);
   };
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (text) handleSubmit({ text, checked: false })
+    // if (text) handleSubmit({ text, checked: false })
+    if (text) {
+      const id: number = todos?.length > 0 ? todos[todos.length - 1].id : 1;
+      dispatch(
+        addTodo({
+          id,
+          text,
+          checked: false
+        })
+      )
+    }
     setText('');
   };
 

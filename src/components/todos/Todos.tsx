@@ -3,8 +3,11 @@ import { ReactNode } from 'react';
 import { createUseStyles, useTheme } from "react-jss";
 import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
-import { Todo } from '../App';
+// import { Todo } from '../App';
 import IconButton from './IconButton';
+import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
+import { checkTodo, removeTodo } from "../../store/actions/TodoActions";
+import { Todo } from "../../store/reducers/TodoReducer";
 
 const useStyles = createUseStyles((theme: any) => ({
   items: {
@@ -32,37 +35,36 @@ const useStyles = createUseStyles((theme: any) => ({
   },
 }))
 
-type Props = { items: Todo[]; handleItems: (values: Todo[]) => void };
-const Todos = ({ items, handleItems }: Props) => {
-  const theme = useTheme();
+// type Props = { items: Todo[]; handleItems: (values: Todo[]) => void };
+// const Todos = ({ items, handleItems }: Props) => {
+type Props = { handleItems: (values: Todo[]) => void };
+const Todos = ({ handleItems }: Props) => {
+  const { todos: items } = useTodoState();
   const classes = useStyles();
+  const theme = useTheme();
+  const dispatch = useTodoDispatch();
   
-  const handleDelete = (index: number): void => {
-    const newItems = items.filter((_, i: number) => i !== index);
-    handleItems([...newItems]);
+  const handleDelete = (todo: Todo): void => {
+    dispatch(removeTodo(todo));
   }
 
-  const handleCheckeds = (index: number): void => {
-    const newItems = items.filter((_, i: number) => i !== index);
-    handleItems([...newItems]);
-  }
-
-  const handleCheck = (index: number): void => {
-    const newItems: Todo[] = [...items];
-    newItems.map((item: Todo, i: number): void | boolean => {
-      if (i !== index) return false;
-      item.checked = !item.checked;
-      return false;
-    })
-    handleItems([...newItems]);
+  const handleCheck = (todo: Todo): void => {
+    // const newItems: Todo[] = [...items];
+    // newItems.map((item: Todo, i: number): void | boolean => {
+    //   if (i !== index) return false;
+    //   item.checked = !item.checked;
+    //   return false;
+    // })
+    // handleItems([...newItems]);
+    dispatch(checkTodo(todo))
   }
 
   return (
     <div className={classes.items}>
-      { items.length > 0
+      { items?.length > 0
         ? [items.map((item: Todo, index: number): ReactNode => (
       // ----------------- List -----------------------------// 
-        <div className={classes.item} key={item.text}>
+        <div className={classes.item} key={item.id + index}>
           <div>
             <input type="checkbox" className={classes.checkbox}/>
             <span className={classes.text}>
@@ -73,14 +75,14 @@ const Todos = ({ items, handleItems }: Props) => {
           <div className={classes.actions}>
             <IconButton
               icon={item.checked ? FaCheck : FaTimes}
-              color={item.checked && (theme as any)?.colors.active}
-              onClick={() => handleCheck(index)}
+              color={item.checked ? (theme as any)?.colors.active : 'initial'}
+              onClick={() => handleCheck(item)}
             
             />
             <IconButton
               icon={FaTrashAlt}
               size={18}
-              onClick={() => handleDelete(index)}
+              onClick={() => handleDelete(item)}
             />
           </div>
         </div>

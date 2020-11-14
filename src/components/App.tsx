@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from 'react';
 import { createUseStyles } from "react-jss";
 
+import { TodoProvider } from '../store/context/TodoContext';
 import Todos from './todos/Todos';
 import Form from './Form';
 import "../styles.css";
@@ -29,12 +30,15 @@ const App = () => {
   const handleItems = (items: Todo[]): void => setItems([...items]);
 
   return (
+    <TodoProvider>
       <div className={classes.root}>
         <div className={classes.container}>
           <Form handleSubmit={handleSubmit} />
-          <Todos items={items} handleItems={handleItems} />
+          <Todos handleItems={handleItems} />
+          {/* <Todos items={items} handleItems={handleItems} /> */}
         </div>
       </div>
+    </TodoProvider>
   );
 }
 
