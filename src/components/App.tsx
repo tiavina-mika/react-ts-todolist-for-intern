@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from 'react';
 import { createUseStyles } from "react-jss";
 
 import { TodoProvider } from '../store/context/TodoContext';

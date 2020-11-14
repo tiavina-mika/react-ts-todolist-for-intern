@@ -1,11 +1,9 @@
 import * as React from "react";
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { createUseStyles } from "react-jss";
+
 import { addTodo } from "../store/actions/TodoActions";
 import { useTodoDispatch, useTodoState } from "../store/context/TodoContext";
-
-import { Todo } from './App';
-
 
 const useStyles = createUseStyles((theme: any) => ({
   form: {
@@ -47,7 +45,6 @@ const Form = () => {
   };
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    // if (text) handleSubmit({ text, checked: false })
     if (text) {
       const id: number = todos?.length > 0 ? todos[todos.length - 1].id : 1;
       dispatch(
