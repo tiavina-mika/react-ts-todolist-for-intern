@@ -19,7 +19,6 @@ const useStyles = createUseStyles((theme: any) => ({
 
 const Todos = () => {
   const { todos: items } = useTodoState();
-  console.log(items);
   const classes = useStyles();
   const dispatch = useTodoDispatch();
   
