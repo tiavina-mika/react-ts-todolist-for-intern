@@ -45,7 +45,13 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
           ...state, 
           todos: [...newTodos, {...todo, selected: !todo?.selected}]
         };
-        
+    case TodoActionTypes.REMOVE_TODOS:
+        const removedTodos = state.todos.filter((todo: Todo) => todo.selected !== true);
+        return {
+          ...state, 
+          todos: [...removedTodos]
+        };
+            
     default:
       return state;
   }

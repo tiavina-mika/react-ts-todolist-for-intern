@@ -6,6 +6,7 @@ export enum TodoActionTypes {
   REMOVE_TODO = "REMOVE_TODO",
   CHECK_TODO = "CHECK_TODO",
   SELECT_TODO = "SELECT_TODO",
+  REMOVE_TODOS = "REMOVE_TODOS",
 }
 
 export interface TodoAction {
@@ -42,6 +43,13 @@ export const selectTodo = (todos: Todo) => {
   return {
     type: TodoActionTypes.SELECT_TODO,
     payload: todos,
+  };
+};
+
+// Action Generator for selected todos remove
+export const removeTodos = () => {
+  return {
+    type: TodoActionTypes.REMOVE_TODOS,
   };
 };
 

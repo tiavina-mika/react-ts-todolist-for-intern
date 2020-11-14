@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { createUseStyles } from "react-jss";
 
 import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
-import { checkTodo, removeTodo, selectTodo } from "../../store/actions/TodoActions";
+import { checkTodo, removeTodo, removeTodos, selectTodo } from "../../store/actions/TodoActions";
 import { Todo as TodoI } from "../../store/reducers/TodoReducer";
 import Column from "./Column";
 
@@ -32,13 +32,14 @@ const Todos = () => {
   const handleDelete = (todo: TodoI): void => dispatch(removeTodo(todo));
   const handleCheck = (todo: TodoI): void => dispatch(checkTodo(todo));
   const handleSelected = (todo: TodoI): void => dispatch(selectTodo(todo));
+  const handleDeleteSelected = (): void => dispatch(removeTodos());
 
   return (
     <div className={classes.items}>
       <Column 
         onSelect={() => {}}
         onCheck={() => {}}
-        onDelete={() => {}}
+        onDelete={() => handleDeleteSelected()}
         checked={false}
       />
   
