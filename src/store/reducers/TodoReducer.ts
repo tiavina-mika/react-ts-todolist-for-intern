@@ -51,19 +51,32 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
           ...state, 
           todos: [...removedTodos]
         };
-    case TodoActionTypes.CHECK_TODOS:
-        const newTodos: Todo[] = [];
-        state.todos.map((todo: Todo): boolean => {
-          if (todo.selected) {
-            newTodos.push({ ...todo, checked: true});
-            return false;
-          }
-          newTodos.push(todo);
-          return false;
-        })
+        // case TodoActionTypes.CHECK_TODOS:
+        //   const newTodos: Todo[] = [];
+        //   state.todos.map((todo: Todo): boolean => {
+        //     if (todo.selected) {
+        //       newTodos.push({ ...todo, checked: true});
+        //       return false;
+        //     }
+        //     newTodos.push(todo);
+        //     return false;
+        //   })
+        //   return {
+        //     ...state, 
+        //     todos: newTodos,
+        //   };
+      case TodoActionTypes.CHECK_TODOS:
+        const isAllChecked = state.todos.every((todo: Todo) => todo.checked === true);
         return {
           ...state, 
-          todos: newTodos,
+          todos: [
+            ...state.todos.map((todo: Todo) => (
+              {
+                ...todo, 
+                checked: isAllChecked ? false: true
+              }
+            ))
+          ]
         };
     case TodoActionTypes.SELECT_ALL_TODOS:
       const isAllSelected = state.todos.every((todo: Todo) => todo.selected === true);
