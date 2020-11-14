@@ -65,7 +65,7 @@ const Form = () => {
             value={text} 
             onChange={handleChange} 
             className={classes.input}
-            placeholder="Enter a text"
+            placeholder="Enter a todo"
           />
           <button type="submit" className={classes.button}>Save</button>
       </form>
