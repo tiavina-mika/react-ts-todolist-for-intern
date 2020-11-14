@@ -51,7 +51,8 @@ const Form = () => {
         addTodo({
           id,
           text,
-          checked: false
+          checked: false,
+          selected: false,
         })
       )
     }
