@@ -2,7 +2,7 @@ import * as React from "react";
 import { render } from "react-dom";
 import { ThemeProvider } from "react-jss";
 
-import App from "./App";
+import App from "./components/App";
 
 const theme = {
   colors: {

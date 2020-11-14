@@ -4,7 +4,7 @@ import { createUseStyles } from "react-jss";
 
 import Todos from './todos/Todos';
 import Form from './Form';
-import "./styles.css";
+import "../styles.css";
 
 const useStyles = createUseStyles((theme: any) => ({
   root: {
