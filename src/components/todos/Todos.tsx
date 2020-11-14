@@ -1,14 +1,10 @@
 import * as React from "react";
 import { ReactNode } from 'react';
-import { createUseStyles, useTheme } from "react-jss";
-import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { createUseStyles } from "react-jss";
 
-// import { Todo } from '../App';
-import IconButton from './IconButton';
 import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
 import { checkTodo, removeTodo, selectTodo } from "../../store/actions/TodoActions";
 import { Todo as TodoI } from "../../store/reducers/TodoReducer";
-import Todo from "./Todo";
 import Column from "./Column";
 
 const useStyles = createUseStyles((theme: any) => ({
@@ -23,7 +19,6 @@ const useStyles = createUseStyles((theme: any) => ({
 const Todos = () => {
   const { todos: items } = useTodoState();
   const classes = useStyles();
-  const theme = useTheme();
   const dispatch = useTodoDispatch();
   
   if (items.length === 0) {
@@ -33,6 +28,11 @@ const Todos = () => {
       </div>
     )
   }
+
+  const handleDelete = (todo: TodoI): void => dispatch(removeTodo(todo));
+  const handleCheck = (todo: TodoI): void => dispatch(checkTodo(todo));
+  const handleSelected = (todo: TodoI): void => dispatch(selectTodo(todo));
+
   return (
     <div className={classes.items}>
       <Column 
@@ -43,7 +43,14 @@ const Todos = () => {
       />
   
       {items.map((item: TodoI, index: number): ReactNode => 
-        <Todo todo={item} key={item.id + index} />
+        <Column
+          key={item.id + index}
+          onSelect={() => handleSelected(item)}
+          onCheck={() => handleCheck(item)}
+          onDelete={() => handleDelete(item)}
+          content={item.text}
+          checked={item.checked}
+        />
       )}
     </div>
   );
