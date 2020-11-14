@@ -6,7 +6,7 @@ import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 // import { Todo } from '../App';
 import IconButton from './IconButton';
 import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
-import { checkTodo, removeTodo } from "../../store/actions/TodoActions";
+import { checkTodo, removeTodo, selectTodo } from "../../store/actions/TodoActions";
 import { Todo } from "../../store/reducers/TodoReducer";
 
 const useStyles = createUseStyles((theme: any) => ({
@@ -37,12 +37,14 @@ const useStyles = createUseStyles((theme: any) => ({
 
 const Todos = () => {
   const { todos: items } = useTodoState();
+  console.log(items)
   const classes = useStyles();
   const theme = useTheme();
   const dispatch = useTodoDispatch();
   
   const handleDelete = (todo: Todo): void => dispatch(removeTodo(todo));
   const handleCheck = (todo: Todo): void => dispatch(checkTodo(todo));
+  const handleSelected = (todo: Todo): void => dispatch(selectTodo(todo));
 
   return (
     <div className={classes.items}>
@@ -51,7 +53,7 @@ const Todos = () => {
       // ----------------- List -----------------------------// 
         <div className={classes.item} key={item.id + index}>
           <div>
-            <input type="checkbox" className={classes.checkbox}/>
+            <input type="checkbox" className={classes.checkbox} onChange={() => handleSelected} />
             <span className={classes.text}>
               {item.text}
             </span>
