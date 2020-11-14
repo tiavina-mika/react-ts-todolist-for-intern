@@ -33,7 +33,11 @@ const useStyles = createUseStyles((theme: any) => ({
     marginTop: theme.spacing(2),
     '&:focus': {
       outline: 'none',
-    }
+    },
+    '&:hover': {
+      cursor: 'pointer',
+    },
+
   },
   items: {
     composes: 'flexColumn center spaceBetween flex1 stretchSelf',
@@ -56,7 +60,10 @@ const useStyles = createUseStyles((theme: any) => ({
     border: 'none',
     '&:focus': {
       outline: 'none',
-    }
+    },
+    '&:hover': {
+      cursor: 'pointer',
+    },
   }
 }))
 
@@ -86,9 +93,10 @@ const App = () => {
 
   const handleCheck = (index: number): void => {
     const newItems = [...items];
-    newItems.map((item: Item, i: number) => {
+    newItems.map((item: Item, i: number): void | boolean => {
       if (i !== index) return false;
       item.checked = !item.checked;
+      return false;
     })
     setItems([...newItems]);
   }
