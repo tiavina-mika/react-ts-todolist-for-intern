@@ -16,8 +16,16 @@ const useStyles = createUseStyles((theme: any) => ({
   item: {
     composes: 'flexRow center spaceBetween flex1 stretchSelf',
   },
+  checkbox: {
+    marginRight: theme.spacing(1),
+    '&:hover': {
+      cursor: 'pointer',
+    }
+  },
   text: {
-    fontFamily: 'Roboto, sans-serif'
+    fontFamily: 'Roboto, sans-serif',
+    textTransform: 'capitalize',
+    letterSpacing: 0.5,
   },
   actions: {
     composes: 'flexRow center',
@@ -34,8 +42,13 @@ const Todos = ({ items, handleItems }: Props) => {
     handleItems([...newItems]);
   }
 
+  const handleCheckeds = (index: number): void => {
+    const newItems = items.filter((_, i: number) => i !== index);
+    handleItems([...newItems]);
+  }
+
   const handleCheck = (index: number): void => {
-    const newItems = [...items];
+    const newItems: Todo[] = [...items];
     newItems.map((item: Todo, i: number): void | boolean => {
       if (i !== index) return false;
       item.checked = !item.checked;
@@ -50,10 +63,12 @@ const Todos = ({ items, handleItems }: Props) => {
         ? [items.map((item: Todo, index: number): ReactNode => (
       // ----------------- List -----------------------------// 
         <div className={classes.item} key={item.text}>
-          {/* ----------------- Text ----------------------------- */}
-          <span className={classes.text}>
-            {item.text}
-          </span>
+          <div>
+            <input type="checkbox" className={classes.checkbox}/>
+            <span className={classes.text}>
+              {item.text}
+            </span>
+          </div>
           {/* ----------------- Button Actions ----------------------------- */}
           <div className={classes.actions}>
             <IconButton
