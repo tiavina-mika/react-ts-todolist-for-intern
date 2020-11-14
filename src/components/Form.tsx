@@ -46,7 +46,7 @@ const Form = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (text) {
-      const id: number = todos?.length > 0 ? todos[todos.length - 1].id : 1;
+      const id: number = todos?.length > 0 ? todos[todos.length - 1].id + 1 : 1;
       dispatch(
         addTodo({
           id,
