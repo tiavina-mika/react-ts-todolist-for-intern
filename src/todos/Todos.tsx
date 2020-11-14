@@ -3,7 +3,8 @@ import { ReactNode } from 'react';
 import { createUseStyles, useTheme } from "react-jss";
 import { FaCheck, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
-import { Todo } from './App';
+import { Todo } from '../App';
+import IconButton from './IconButton';
 
 const useStyles = createUseStyles((theme: any) => ({
   items: {
@@ -21,17 +22,6 @@ const useStyles = createUseStyles((theme: any) => ({
   actions: {
     composes: 'flexRow center',
   },
-  actionButton: {
-    composes: 'flexRow center',
-    backgroundColor: 'transparent',
-    border: 'none',
-    '&:focus': {
-      outline: 'none',
-    },
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  }
 }))
 
 type Props = { items: Todo[]; handleItems: (values: Todo[]) => void };
@@ -66,23 +56,17 @@ const Todos = ({ items, handleItems }: Props) => {
           </span>
           {/* ----------------- Button Actions ----------------------------- */}
           <div className={classes.actions}>
-            <button 
-              className={classes.actionButton} 
-              type="button"
+            <IconButton
+              icon={item.checked ? FaCheck : FaTimes}
+              color={item.checked && (theme as any)?.colors.active}
               onClick={() => handleCheck(index)}
-            >
-              {item.checked 
-                ? <FaCheck size={22} color={(theme as any)?.colors.active} /> 
-                : <FaTimes size={22} />
-              }
-            </button>
-            <button 
-              className={classes.actionButton} 
-              type="button"
+            
+            />
+            <IconButton
+              icon={FaTrashAlt}
+              size={18}
               onClick={() => handleDelete(index)}
-            >
-              <FaTrashAlt size={18} />
-            </button>
+            />
           </div>
         </div>
       ))]

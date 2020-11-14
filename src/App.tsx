@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from 'react';
 import { createUseStyles } from "react-jss";
 
-import Todos from './Todos';
+import Todos from './todos/Todos';
 import Form from './Form';
 import "./styles.css";
 
