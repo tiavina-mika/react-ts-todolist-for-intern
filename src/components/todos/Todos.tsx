@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { createUseStyles } from "react-jss";
 
 import { useTodoDispatch, useTodoState } from "../../store/context/TodoContext";
-import { checkTodo, removeTodo, removeTodos, selectTodo } from "../../store/actions/TodoActions";
+import { checkTodo, removeTodo, removeTodos, selectTodo, checkTodos, selectAllTodos } from "../../store/actions/TodoActions";
 import { Todo as TodoI } from "../../store/reducers/TodoReducer";
 import Column from "./Column";
 import Text from "../shared/Text";
@@ -34,14 +34,16 @@ const Todos = () => {
   const handleCheck = (todo: TodoI): void => dispatch(checkTodo(todo));
   const handleSelected = (todo: TodoI): void => dispatch(selectTodo(todo));
   const handleDeleteSelected = (): void => dispatch(removeTodos());
+  const handleCheckSelected = (): void => dispatch(checkTodos());
+
+  const handleSelectAll = (): void => dispatch(selectAllTodos());
 
   return (
     <div className={classes.items}>
       <Column 
-        onSelect={() => {}}
-        onCheck={() => {}}
+        onSelect={() => handleSelectAll()}
+        onCheck={() => handleCheckSelected()}
         onDelete={() => handleDeleteSelected()}
-        checked={false}
       />
   
       {items.map((item: TodoI, index: number): ReactNode => 
@@ -52,6 +54,7 @@ const Todos = () => {
           onDelete={() => handleDelete(item)}
           content={item.text}
           checked={item.checked}
+          selected={item.selected}
         />
       )}
     </div>

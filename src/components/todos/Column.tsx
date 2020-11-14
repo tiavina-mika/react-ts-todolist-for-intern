@@ -31,23 +31,24 @@ type Props = {
   onCheck: () => void; 
   onDelete: () => void; 
   content?: string;
-  checked: boolean; 
+  checked?: boolean; 
+  selected?: boolean; 
 }
-const Column = ({ onSelect, onCheck, onDelete, content, checked }: Props) => {
+const Column = ({ onSelect, onCheck, onDelete, content, checked, selected }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
 
   return (
       <div className={classes.item}>
         <div>
-          <input type="checkbox" className={classes.checkbox} onChange={onSelect} />
+          <input type="checkbox" checked={selected} className={classes.checkbox} onChange={onSelect} />
           {content && <Text text={content} />}
         </div>
         {/* ----------------- Button Actions ----------------------------- */}
         <div className={classes.actions}>
           <IconButton
             icon={checked ? FaCheck : FaTimes}
-            color={checked ? (theme as any)?.colors.active : 'initial'}
+            color={checked && content ? (theme as any)?.colors.active : 'initial'}
             onClick={onCheck}
           
           />

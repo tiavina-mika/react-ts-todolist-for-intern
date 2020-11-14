@@ -7,11 +7,13 @@ export enum TodoActionTypes {
   CHECK_TODO = "CHECK_TODO",
   SELECT_TODO = "SELECT_TODO",
   REMOVE_TODOS = "REMOVE_TODOS",
+  CHECK_TODOS = "CHECK_TODOS",
+  SELECT_ALL_TODOS = "SELECT_ALL_TODOS",
 }
 
 export interface TodoAction {
   type: TodoActionTypes;
-  payload?: Todo;
+  payload?: Todo | boolean;
 };
 
 // Action Generator for ADD
@@ -50,6 +52,22 @@ export const selectTodo = (todos: Todo) => {
 export const removeTodos = () => {
   return {
     type: TodoActionTypes.REMOVE_TODOS,
+  };
+};
+
+// Action Generator for checked todos
+export const checkTodos = () => {
+  return {
+    type: TodoActionTypes.CHECK_TODOS,
+  };
+};
+
+// Action Generator for all selected todos
+// type SelectAllTodosProps = { isSelect: boolean }
+export const selectAllTodos = () => {
+  return {
+    type: TodoActionTypes.SELECT_ALL_TODOS,
+    // payload: isSelect
   };
 };
 

@@ -22,13 +22,13 @@ export const initialState: TodoState = {
 export const todoReducer = (state: TodoState, action: TodoAction) => {
   const { payload }: Pick<TodoAction, 'payload'> = action;
   const todo: Todo | undefined = findTodoById(state.todos, payload?.id);
-  const newTodos: Todo[] = state.todos.filter((todoState: Todo): boolean => todoState !== todo);
+  const selectedTodos: Todo[] = state.todos.filter((todoState: Todo): boolean => todoState !== todo);
 
   switch (action.type) {
     case TodoActionTypes.ADD_TODO:
       return {
         ...state, 
-        todos: [...state.todos, {...payload}]
+        todos: [...state.todos, payload],
       };
     case TodoActionTypes.REMOVE_TODO:
       return {
@@ -38,12 +38,12 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
     case TodoActionTypes.CHECK_TODO:
         return {
           ...state, 
-          todos: [...newTodos, {...todo, checked: !todo?.checked}]
+          todos: [...selectedTodos, {...todo, checked: !todo?.checked}]
         };
     case TodoActionTypes.SELECT_TODO:
         return {
           ...state, 
-          todos: [...newTodos, {...todo, selected: !todo?.selected}]
+          todos: [...selectedTodos, {...todo, selected: !todo?.selected}]
         };
     case TodoActionTypes.REMOVE_TODOS:
         const removedTodos = state.todos.filter((todo: Todo) => todo.selected !== true);
@@ -51,7 +51,34 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
           ...state, 
           todos: [...removedTodos]
         };
-            
+    case TodoActionTypes.CHECK_TODOS:
+        const newTodos: Todo[] = [];
+        state.todos.map((todo: Todo): boolean => {
+          if (todo.selected) {
+            newTodos.push({ ...todo, checked: true});
+            return false;
+          }
+          newTodos.push(todo);
+          return false;
+        })
+        return {
+          ...state, 
+          todos: newTodos,
+        };
+    case TodoActionTypes.SELECT_ALL_TODOS:
+      const isAllSelected = state.todos.every((todo: Todo) => todo.selected === true);
+      return {
+        ...state, 
+        todos: [
+          ...state.todos.map((todo: Todo) => (
+            {
+              ...todo, 
+              selected: isAllSelected ? false: true
+            }
+          ))
+        ]
+      };
+                   
     default:
       return state;
   }
