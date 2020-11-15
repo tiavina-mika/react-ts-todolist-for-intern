@@ -27,7 +27,7 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
   switch (action.type) {
     case TodoActionTypes.ADD_TODO:
       /** if the todo text exist already, set an error  */
-      if (state.todos.find((todo: Todo) => todo.text === payload?.text)) {
+      if (state.todos.find((todo: Todo): boolean  => todo.text === payload?.text)) {
         return {
           ...state,
           error: 'To déjà existant. Veuillez entrer un autre todo',
