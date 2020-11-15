@@ -9,6 +9,7 @@ export enum TodoActionTypes {
   REMOVE_TODOS = "REMOVE_TODOS",
   CHECK_TODOS = "CHECK_TODOS",
   SELECT_ALL_TODOS = "SELECT_ALL_TODOS",
+  CLEAR_ERROR = "CLEAR_ERROR",
 }
 
 export interface TodoAction {
@@ -68,6 +69,13 @@ export const selectAllTodos = () => {
   return {
     type: TodoActionTypes.SELECT_ALL_TODOS,
     // payload: isSelect
+  };
+};
+
+// type SelectAllTodosProps = { isSelect: boolean }
+export const clearError = () => {
+  return {
+    type: TodoActionTypes.CLEAR_ERROR,
   };
 };
 

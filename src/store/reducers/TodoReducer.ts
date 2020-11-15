@@ -26,9 +26,17 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
 
   switch (action.type) {
     case TodoActionTypes.ADD_TODO:
+      /** if the todo text exist already, set an error  */
+      if (state.todos.find((todo: Todo) => todo.text === payload?.text)) {
+        return {
+          ...state,
+          error: 'To déjà existant. Veuillez entrer un autre todo',
+        }
+      }
       return {
         ...state, 
         todos: [...state.todos, payload],
+        error: '',
       };
     case TodoActionTypes.REMOVE_TODO:
       return {
@@ -78,20 +86,25 @@ export const todoReducer = (state: TodoState, action: TodoAction) => {
             ))
           ]
         };
-    case TodoActionTypes.SELECT_ALL_TODOS:
-      const isAllSelected = state.todos.every((todo: Todo) => todo.selected === true);
-      return {
-        ...state, 
-        todos: [
-          ...state.todos.map((todo: Todo) => (
-            {
-              ...todo, 
-              selected: isAllSelected ? false: true
-            }
-          ))
-        ]
-      };
-                   
+      case TodoActionTypes.SELECT_ALL_TODOS:
+          const isAllSelected = state.todos.every((todo: Todo) => todo.selected === true);
+          return {
+            ...state, 
+            todos: [
+              ...state.todos.map((todo: Todo) => (
+                {
+                  ...todo, 
+                  selected: isAllSelected ? false: true
+                }
+              ))
+            ]
+          };
+      case TodoActionTypes.CLEAR_ERROR:
+          return {
+            ...state, 
+            error: '',
+          };
+                                   
     default:
       return state;
   }
