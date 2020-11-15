@@ -13,7 +13,7 @@ export enum TodoActionTypes {
 
 export interface TodoAction {
   type: TodoActionTypes;
-  payload?: Todo | boolean;
+  payload?: Todo;
 };
 
 // Action Generator for ADD
