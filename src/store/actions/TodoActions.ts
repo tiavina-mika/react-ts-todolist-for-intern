@@ -64,7 +64,6 @@ export const checkTodos = () => {
 };
 
 // Action Generator for all selected todos
-// type SelectAllTodosProps = { isSelect: boolean }
 export const selectAllTodos = () => {
   return {
     type: TodoActionTypes.SELECT_ALL_TODOS,
@@ -72,7 +71,7 @@ export const selectAllTodos = () => {
   };
 };
 
-// type SelectAllTodosProps = { isSelect: boolean }
+// Action Generator to clear error
 export const clearError = () => {
   return {
     type: TodoActionTypes.CLEAR_ERROR,
