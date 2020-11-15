@@ -36,7 +36,6 @@ const useStyles = createUseStyles((theme: any) => ({
   },
 }))
 
-
 const App = () => {
   const classes = useStyles();
 
